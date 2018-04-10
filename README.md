@@ -6,4 +6,4 @@ Business Requirements
 
 2. The API will return the closest pharmacy (with name and address) in a consumable response packet. 
 
-3. The API will include the distance (in miles) between the input latitude/longitude and the selected closest pharmacy in the response packet. 
+3. **The API will include the distance (in miles) _between_ the input latitude/longitude and the selected closest pharmacy in the response packet.** 
