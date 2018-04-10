@@ -17,7 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 //list all locations for testing purposes only
 Route::get('all-locations', 'API\LocationController@index');
 

@@ -17,7 +17,7 @@ class LocationController extends Controller
      */
     public function index()
     {
-        //Get all of the locations
+        //Get all of the locations purely for testing purposes
         $locations = Location::paginate(5);
 
         //Return collection of locations as a resource
@@ -38,14 +38,18 @@ class LocationController extends Controller
         //lets call our custom query
         $locationInfo = Location::nearestLocation($lat, $long);
 
-        //per business requirements "The API will include the distance (in miles) between the input latitude/longitude and the selected closest pharmacy in the response packet"
-        foreach ($locationInfo as $key => $info) {
+        /*per business requirements "The API will include the distance (in miles) between the input
+          latitude/longitude and the selected closest pharmacy in the response packet"
+          we are removing it from the query array to put it lower and in the place we need.
+        */
+        foreach ($locationInfo as $info) {
             if($info->distance_in_miles) {
                 $distance = $info->distance_in_miles;
                 unset($info->distance_in_miles);
             }
         }
 
+        //essentially we just want to avoid giving locations without both values.
         if(empty($locationInfo)) {
             return response()->json(['response' => 'Data Not Found', 'location' => 'empty'])->setStatusCode(404);
         }
